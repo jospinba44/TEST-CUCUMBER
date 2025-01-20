@@ -8,9 +8,9 @@ const connection = async () => {
     if (globalPool) return globalPool;
     globalPool = await createPool({
       host: process.env.BD_HOST || "localhost",
-      user: process.env.DB_USER || "user",
+      user: process.env.DB_USER || "root",
       password: process.env.DB_PASSWORD || "password",
-      database: process.env.DB_NAME || "test_db",
+      database: process.env.DB_NAME || "cucumber_test",
       port: process.env.DB_PORT ? process.env.DB_PORT : 3306,
       waitForConnections: true,
       connectionLimit: 10,
