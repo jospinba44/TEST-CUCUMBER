@@ -1,0 +1,25 @@
+{
+  "name": "test-cucumber",
+  "version": "1.0.0",
+  "description": "Cucumber get start",
+  "license": "ISC",
+  "author": "jospinba@gmail.com",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cucumber-js",
+    "start": "nodemon index_server.js"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0"
+  },
+  "dependencies": {
+    "chai": "^5.1.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mysql2": "^3.12.0",
+    "node-mocks-http": "^1.16.2",
+    "nodemon": "^3.1.9"
+  }
+}
