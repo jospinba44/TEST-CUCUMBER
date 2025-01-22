@@ -9,7 +9,7 @@ const connection = async () => {
     globalPool = await createPool({
       host: process.env.BD_HOST || "localhost",
       user: process.env.DB_USER || "root",
-      password: process.env.DB_PASSWORD || "password",
+      password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME || "cucumber_test",
       port: process.env.DB_PORT ? process.env.DB_PORT : 3306,
       waitForConnections: true,
