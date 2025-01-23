@@ -1,5 +1,6 @@
 const { Given, When, Then, After } = require('@cucumber/cucumber');
 const httpMocks = require('node-mocks-http');
+const axios = require('axios');
 
 let chai;
 let expect;
@@ -25,32 +26,31 @@ Given('un utilisateur avec l\'email {string} existe déjà', async function (ema
 });
 
 When('je soumets une demande de création d\'utilisateur avec le nom {string}, le prénom {string}, et l\'email {string}', async function (nom, prenom, email) {
-    const req = httpMocks.createRequest({
-        body: {
+    try {
+        response = await axios.post('http://localhost:3000/utilisateur/add_user', {
             NOM: nom,
             PRENOM: prenom,
             EMAIL: email
-        }
-    });
-    const res = httpMocks.createResponse();
-
-    await createUser(req, res);
-    this.response = res;
+        });
+    } catch (error) {
+        response = error.response; // Pour récupérer la réponse d'erreur
+    }
 });
 
 Then('je devrais recevoir un statut {int}', function (status) {
-    expect(this.response.statusCode).to.equal(status);
+    expect(response.status).to.equal(status);
 });
 
 Then('je devrais voir un utilisateur créé avec le nom {string} et le prénom {string}', function (nom, prenom) {
-    const utilisateur = JSON.parse(this.response._getData());
+    const utilisateur = response.data;
+    console.log(utilisateur);
+    
     expect(utilisateur.NOM).to.equal(nom);
     expect(utilisateur.PRENOM).to.equal(prenom);
 });
 
 Then('je devrais voir un message {string}', function (message) {
-    const getvalue = this.response._getData();
-    expect(JSON.parse(getvalue).message).to.equal(message); 
+    expect(response.data.message).to.equal(message);
 });
 
 After(function () {

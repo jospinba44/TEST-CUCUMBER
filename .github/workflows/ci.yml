@@ -3,31 +3,14 @@ name: CI
 on:
   push:
     branches:
-      - main
-      - feat/* 
+      - main  # Déclenche les tests sur la branche main
   pull_request:
     branches:
-      - main
+      - main  # Déclenche les tests sur les pull requests vers la branche main
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: cucumber_test
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd "mysqladmin ping -h localhost"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 3
 
     steps:
       - name: Checkout code
@@ -36,21 +19,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22' 
+          node-version: '22'  # Spécifiez la version de Node.js que vous utilisez
 
       - name: Install dependencies
         run: npm install
 
-      - name: Wait for MySQL to be ready
-        run: |
-          while ! mysqladmin ping -h 127.0.0.1 --silent; do
-            sleep 1
-          done
-
-      - name: Create database and tables
-        run: |
-          mysql -u user -ppassword -h 127.0.0.1 -e "CREATE DATABASE IF NOT EXISTS cucumber_test;"
-          mysql -u user -ppassword -h 127.0.0.1 cucumber_test < ./db/schema.sql
-
       - name: Run tests
-        run: npm test
+        run: npm test  # Remplacez par la commande que vous utilisez pour exécuter vos tests
