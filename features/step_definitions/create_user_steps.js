@@ -10,7 +10,6 @@ let expect;
     expect = chai.expect;
 })();
 
-const { createUser } = require('../../controllers/utilisateur.controller');
 let { query } = require('../../utils/db');
 
 let originalQuery;
@@ -43,8 +42,6 @@ Then('je devrais recevoir un statut {int}', function (status) {
 
 Then('je devrais voir un utilisateur créé avec le nom {string} et le prénom {string}', function (nom, prenom) {
     const utilisateur = response.data;
-    console.log(utilisateur);
-    
     expect(utilisateur.NOM).to.equal(nom);
     expect(utilisateur.PRENOM).to.equal(prenom);
 });
