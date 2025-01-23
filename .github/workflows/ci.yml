@@ -29,8 +29,8 @@ jobs:
 
       - name: Wait for server to be ready
         run: |
-          while ! curl -f http://localhost:3000/utilisateur/add_user; do
-            echo "Waiting for server..."
+          while ! curl -f -X POST -H "Content-Type: application/json" -d '{"NOM":"test","PRENOM":"Test","EMAIL":"test@example.com"}' http://localhost:3000/utilisateur/add_user; do
+            echo "Waiting for server to be ready..."
             sleep 2
           done
 
