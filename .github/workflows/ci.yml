@@ -19,10 +19,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '22'  # Spécifiez la version de Node.js que vous utilisez
+          node-version: '14'
 
       - name: Install dependencies
         run: npm install
 
+      - name: Test API availability
+        run: curl -f http://localhost:3000/utilisateur/add_user || echo "API not available"
+
       - name: Run tests
-        run: npm test  # Remplacez par la commande que vous utilisez pour exécuter vos tests
+        run: npm test
