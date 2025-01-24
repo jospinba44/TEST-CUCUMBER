@@ -10,3 +10,6 @@ Feature: Création d'un utilisateur
     When je soumets une demande de création d'utilisateur avec le nom "arsene", le prénom "Olembe", et l'email "arsene@gmail.com"
     Then je devrais recevoir un statut 201
     And je devrais voir un utilisateur créé avec le nom "arsene" et le prénom "Olembe"
+
+ Scenario:Un scenario non definie dans step
+ Given Ecriture d'un scenario non definie
